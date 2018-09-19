@@ -9,15 +9,19 @@ using std::cin;
 
 #include <string>
 using std::string;
+using std::getline;
 
 #include <fstream>
 using std::ifstream;
+using std::ofstream;
+using std::fstream;
+
 int main()
 {
 	string filename;	
 	ifstream myflie;
 	int count(0);
-	double temp(0.0), first(0.0), secend(0.0), third(0.0), fourth(0.0);
+	double temp(0.0),tempLast(0.0), first(0.0), secend(0.0), third(0.0), fourth(0.0);
 
 	cout << "inputa file name" << endl;
 	cin >> filename;	
@@ -26,24 +30,31 @@ int main()
 	if (myflie.is_open())
 	{	
 		while (!myflie.fail())
-		{
-			third = fourth;
-			fourth = temp;
-			if (myflie >> temp)
+		{	
+			
+			if (myflie.eof())
 			{
-				if (count == 0) first = temp;
-				if (count == 1) secend = temp;						
-				count++;
-			}			
+				myflie.close();
+			}
+			else
+			{
+				if (myflie >> temp)
+				{
+					if (count == 0) first = temp;
+					if (count == 1) secend = temp;
+					fourth = temp;					
+					count++;
+				}
+
+			}
 		}
-		cout << "the number of munbers is " << count << endl;
-		cout << "the first number in the file is " << first << endl;
-		cout << "the secend number  in the file is " << secend << endl;
-		cout << "the secend last number in the file is " << third << endl;
-		cout << "the last number  in the file is " << fourth << endl;
-		myflie.close();
 	}
-	 
+
+	 cout <<"the number of munbers is "<< count << endl;
+	 cout <<"the first number in the file is " << first << endl;
+	 cout << "the secend number  in the file is " << secend << endl;
+	 cout << "the secend last number in the file is " << third << endl;
+	 cout << "the last number  in the file is " << fourth << endl;
 	 system("pause");
 	return 0;
 }
